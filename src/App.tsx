@@ -4,6 +4,7 @@ import Register from "./pages/auth/register/Register";
 import Login from "./pages/auth/login/Login";
 import store from "./store/store";
 import { Provider } from "react-redux";
+import Test from "./pages/auth/test/Test";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/test" element={<Test />} />
         </Routes>
       </BrowserRouter>
     </Provider>

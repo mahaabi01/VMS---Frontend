@@ -2,9 +2,9 @@ import React from 'react'
 
 const HomePage = () => {
   return (
-    <div>
-      Hello From Home Page
-    </div>
+    <>
+    <div className='bg-red-500'>Hello World</div>
+    </>
   )
 }
 

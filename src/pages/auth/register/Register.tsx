@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks"
 import { Status } from "../../../globals/types/types"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
+import Navbar from "../../../globals/components/navbar/Navbar"
+import Footer from "../../../globals/components/Footer/Footer"
 
 
 const Register = () => {
@@ -21,7 +23,11 @@ const Register = () => {
     }
   },[status,navigate,dispatch])
   return (
+    <>
+    <Navbar/>
     <Form type="register" onSubmit={handleRegister}/>
+    <Footer />
+    </>
   )
 }
 

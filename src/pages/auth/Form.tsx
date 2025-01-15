@@ -8,7 +8,9 @@ const Form:React.FC<Props> = ({type,onSubmit}) => {
   const [userData,setUserData] = useState<UserDataType>({
     email : "",
     name : "",
-    password : ""
+    password : "",
+    phone: "",
+    address: ""
   })
   const handleChange = (e:ChangeEvent<HTMLInputElement>)=>{
     const {name,value} = e.target 
@@ -51,7 +53,7 @@ const Form:React.FC<Props> = ({type,onSubmit}) => {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span>Company</span>
+                <span>Vendor Management System</span>
               </h1>
               <h2 className="text-sm font-medium text-gray-500 dark:text-gray-400">
                 Welcome, please {type === 'register' ? "sign up" : "sign in"} to your dashboard
@@ -80,13 +82,49 @@ const Form:React.FC<Props> = ({type,onSubmit}) => {
                     type === "register" && (
                       <div className="space-y-1">
                       <label htmlFor="username" className="text-sm font-medium">
-                        Username
+                        Name
                       </label>
                       <input
                         type="username"
                         id="username"
                         name="username"
-                        placeholder="Enter your username"
+                        placeholder="Enter your Name"
+                        className="block w-full rounded-lg border border-gray-200 px-5 py-3 leading-6 placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500/50 dark:border-gray-600 dark:bg-gray-800 dark:placeholder-gray-400 dark:focus:border-blue-500"
+                      onChange={handleChange}
+
+                      />
+                    </div>
+                    )
+                    
+                  }
+                  {
+                    type === "register" && (
+                      <div className="space-y-1">
+                      <label htmlFor="phone" className="text-sm font-medium">
+                        Phone Number
+                      </label>
+                      <input
+                        type="phone"
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        placeholder="Enter your Phone Number"
+                        className="block w-full rounded-lg border border-gray-200 px-5 py-3 leading-6 placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500/50 dark:border-gray-600 dark:bg-gray-800 dark:placeholder-gray-400 dark:focus:border-blue-500"
+                      onChange={handleChange}
+                      />
+                    </div>
+                    )
+                  }
+                  {
+                    type === "register" && (
+                      <div className="space-y-1">
+                      <label htmlFor="address" className="text-sm font-medium">
+                        Address
+                      </label>
+                      <input
+                        type="address"
+                        id="address"
+                        name="address"
+                        placeholder="Enter your Address"
                         className="block w-full rounded-lg border border-gray-200 px-5 py-3 leading-6 placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500/50 dark:border-gray-600 dark:bg-gray-800 dark:placeholder-gray-400 dark:focus:border-blue-500"
                       onChange={handleChange}
 

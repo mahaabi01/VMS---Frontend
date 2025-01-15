@@ -5,6 +5,8 @@ import { UserLoginType } from "../types";
 import { login, resetStatus } from "../../../store/authSlice";
 import { useEffect } from "react";
 import { Status } from "../../../globals/types/types";
+import Navbar from "../../../globals/components/navbar/Navbar";
+import Footer from "../../../globals/components/Footer/Footer";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,7 +21,13 @@ const Login = () => {
       navigate("/");
     }
   }, [status, navigate, dispatch]);
-  return <Form type="login" onSubmit={handleLogin} />;
+  return (
+    <>
+      <Navbar />
+      <Form type="login" onSubmit={handleLogin} />;
+      <Footer />
+    </>
+  );
 };
 
 export default Login;

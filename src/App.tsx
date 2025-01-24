@@ -4,7 +4,6 @@ import Register from "./pages/auth/register/Register";
 import Login from "./pages/auth/login/Login";
 import store from "./store/store";
 import { Provider } from "react-redux";
-import Test from "./pages/auth/test/Test";
 
 function App() {
   return (

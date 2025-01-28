@@ -9,10 +9,7 @@ interface RegisterData {
   phone: string;
   address: string;
   role: string;
-
 }
-
-
 
 interface LoginData {
   email: string;
@@ -46,7 +43,7 @@ const authSlice = createSlice({
     setUser(state: AuthState, action: PayloadAction<User>) {
       state.user = action.payload;
     },
-    setStatus(state: AuthState, action: PayloadAction<Status>) { 
+    setStatus(state: AuthState, action: PayloadAction<Status>) {
       state.status = action.payload;
     },
     resetStatus(state: AuthState) {
@@ -67,15 +64,16 @@ export function register(data: RegisterData) {
     dispatch(setStatus(Status.LOADING));
     try {
       const response = await API.post("register", data);
-      console.log("Check response")
-      console.log("Response: ", response)
-      console.log("Register Data: ", data)
+      console.log("Check response");
+      console.log("Response: ", response);
+      console.log("Register Data: ", data);
       if (response.status === 200) {
         dispatch(setStatus(Status.SUCCESS));
       } else {
         dispatch(setStatus(Status.ERROR));
       }
     } catch (error) {
+      console.log(error);
       dispatch(setStatus(Status.ERROR));
     }
   };

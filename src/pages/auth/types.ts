@@ -8,7 +8,8 @@ export interface UserDataType{
   password: string,
   name: string,
   phone: string,
-  address: string
+  address: string,
+  role: string
 }
 
 export interface UserLoginType{

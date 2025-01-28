@@ -11,6 +11,7 @@ import Footer from "../../../globals/components/Footer/Footer";
 const Login = () => {
   const navigate = useNavigate();
   const { status } = useAppSelector((state) => state.auth);
+  
   const dispatch = useAppDispatch();
   const handleLogin = async (data: UserLoginType) => {
     dispatch(login(data));

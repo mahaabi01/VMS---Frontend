@@ -154,13 +154,43 @@ const Navbar = () => {
               </Link>
             </>
           ) : (
-            <Link
-              to="#"
-              onClick={handleLogout}
-              className="text-sm font-semibold hover:text-blue-600 dark:hover:text-blue-400"
-            >
-              Logout
-            </Link>
+            <div className="group relative p-4 bg-gray-100 dark:bg-gray-700 rounded-lg shadow-md">
+              <button className="text-sm font-semibold text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400">
+                Menu Options
+              </button>
+
+              {/* Hidden by default and shown on hover */}
+              <div className="absolute left-0 top-full mt-2 space-y-4 hidden group-hover:block bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow-md">
+                <Link
+                  to="/user/myCart"
+                  onClick={handleLogout}
+                  className="block text-sm font-semibold text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
+                >
+                  My Cart
+                </Link>
+                <Link
+                  to="/user/myWishList"
+                  onClick={handleLogout}
+                  className="block text-sm font-semibold text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
+                >
+                  My WishList
+                </Link>
+                <Link
+                  to="/user/myCreditLedger"
+                  onClick={handleLogout}
+                  className="block text-sm font-semibold text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
+                >
+                  My Credit Ledger
+                </Link>
+                <Link
+                  to="#"
+                  onClick={handleLogout}
+                  className="block text-sm font-semibold text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
+                >
+                  Logout
+                </Link>
+              </div>
+            </div>
           )}
         </nav>
       </div>

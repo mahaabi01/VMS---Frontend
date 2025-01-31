@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link } from "react-router-dom";
 
 interface Product {
   id: string;
@@ -21,16 +21,17 @@ const Card: React.FC<CardProps> = ({ products }) => {
           key={product.id}
           className="bg-white shadow-lg rounded-xl overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl dark:bg-gray-800 dark:border-gray-700 w-full min-w-[200px]"
         >
-          <Link to={`/product/${product.id}`} className="block"> {/* Wrap in Link */}
+          <Link to={`/product/${product.id}`} className="block">
             <img
               className="w-full h-56 object-cover"
               src={product.imageUrl || "https://via.placeholder.com/150"}
               alt={product.name}
             />
           </Link>
+
           <div className="p-5 mb-5">
             <Link to={`/product/${product.id}`}>
-              <h3 className="text-gray-900 font-semibold text-lg tracking-tight dark:text-white">
+              <h3 className="text-gray-900 font-semibold text-lg tracking-tight dark:text-white hover:text-blue-600">
                 {product.name}
               </h3>
             </Link>
@@ -58,7 +59,7 @@ const Card: React.FC<CardProps> = ({ products }) => {
               <span className="text-2xl font-bold text-gray-900 dark:text-white">
                 ${parseFloat(product.price).toFixed(2)}
               </span>
-              <button className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 transition-all dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">
+              <button className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 transition-all dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">
                 Add to cart
               </button>
             </div>

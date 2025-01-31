@@ -160,23 +160,23 @@ const Navbar = () => {
               </button>
 
               {/* Hidden by default and shown on hover */}
-              <div className="absolute left-0 top-full mt-2 space-y-4 hidden group-hover:block bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow-md">
+              {/* <div className="absolute left-0 top-full mt-2 space-y-4 hidden group-hover:block bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow-md"> */}
+              <div className="absolute left-0 top-full mt-2 space-y-4 hidden group-hover:block bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow-md transition-all duration-300 ease-in-out transform origin-top scale-y-0 group-hover:scale-y-100 opacity-0 group-hover:opacity-100">
                 <Link
-                  to="{`/myCart/${user.id}`}"
-                  onClick={handleLogout}
+                  to={`/user/myCart`}
                   className="block text-sm font-semibold text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
                 >
                   My Cart
                 </Link>
                 <Link
-                  to="{`/myWishList/${user.id}`}"
+                  to={`/myWishList/${user.id}`}
                   onClick={handleLogout}
                   className="block text-sm font-semibold text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
                 >
                   My WishList
                 </Link>
                 <Link
-                  to="/user/myCreditLedger"
+                  to={`/user/myCreditLedger`}
                   onClick={handleLogout}
                   className="block text-sm font-semibold text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
                 >

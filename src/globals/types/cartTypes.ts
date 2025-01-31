@@ -8,5 +8,7 @@ export interface CartItem{
 
 export interface CartState{
   items: CartItem[],
+  isLoading: boolean,
+  error: string | null,
   status: Status
 }

@@ -29,9 +29,11 @@ const HomePage = () => {
       <Navbar />
       <SubNavbar />
       <main className="min-h-screen bg-gray-100 p-6">
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          <Sidebar />
-          <Card products={products} />
+        <div className="flex">
+          <Sidebar className="w-1/4" />
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-3/4">
+            <Card products={products} />
+          </div>
         </div>
       </main>
       <Footer />

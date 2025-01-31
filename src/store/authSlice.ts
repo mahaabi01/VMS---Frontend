@@ -59,7 +59,6 @@ export const { setUser, setStatus, resetStatus, setToken } = authSlice.actions;
 export default authSlice.reducer;
 
 export function register(data: RegisterData) {
-  console.log("Register Data:", data);
   return async function registerThunk(dispatch: any) {
     dispatch(setStatus(Status.LOADING));
     try {

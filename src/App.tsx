@@ -20,7 +20,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/user/myCart" element={<Cart />} />
           <Route path="/product/:id" element= {<SingleProduct />} />
-          <Route path="/myCart/:id" element= {<MyCart />} />
+          {/* <Route path="/myCart/:id" element= {<MyCart />} /> */}
           <Route path="/myWishList/:id" element={<MyWishlist />} />
           <Route path="/myCreditLedger/:id" element={<MyCreditLedger />} />
           {/* <Route path="/products" element={<Product />} /> */}

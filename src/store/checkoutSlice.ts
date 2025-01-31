@@ -3,7 +3,6 @@ import { Status } from "../globals/types/types";
 import { MyOrderData, OrderData, OrderDetails, OrderResponseData, OrderResponseItem, OrderStatus } from "../globals/types/checkoutTypes";
 import { AppDispatch } from "./store";
 import { APIAuthenticated } from "../http"
-import { PathRouteProps } from "react-router-dom";
 
 const initialState:OrderResponseData = {
   items : [],
@@ -49,7 +48,7 @@ export function orderItem(data:OrderData){
   return async function orderItemThunk(dispatch : AppDispatch){
       dispatch(setStatus(Status.LOADING))
       try {
-          const response = await APIAuthenticated.post('/order',data)
+          const response = await APIAuthenticated.post('/order/createOrder',data)
           if(response.status === 200){
               dispatch(setStatus(Status.SUCCESS))
               dispatch(setItems(response.data.data))
@@ -62,6 +61,7 @@ export function orderItem(data:OrderData){
               dispatch(setStatus(Status.ERROR))
           }
       } catch (error) {
+        console.log(error)
           dispatch(setStatus(Status.ERROR))
       }
   }
@@ -73,7 +73,7 @@ export function fetchMyOrders(){
   return async function fetchMyOrdersThunk(dispatch : AppDispatch){
       dispatch(setStatus(Status.LOADING))
       try {
-          const response = await APIAuthenticated.get('/order/customer')
+          const response = await APIAuthenticated.get('order/getMyOrders')
           if(response.status === 200){
               dispatch(setStatus(Status.SUCCESS))
               dispatch(setMyOrders(response.data.data))
@@ -81,6 +81,7 @@ export function fetchMyOrders(){
               dispatch(setStatus(Status.ERROR))
           }
       } catch (error) {
+        console.log(error)
           dispatch(setStatus(Status.ERROR))
       }
   }
@@ -90,7 +91,7 @@ export function fetchMyOrderDetails(id:string){
   return async function fetchMyOrderDetailsThunk(dispatch : AppDispatch){
       dispatch(setStatus(Status.LOADING))
       try {
-          const response = await APIAuthenticated.get('/order/customer/' + id)
+          const response = await APIAuthenticated.get('/order/getorderbyid/' + id)
           if(response.status === 200){
               dispatch(setStatus(Status.SUCCESS))
               dispatch(setMyOrderDetails(response.data.data))
@@ -98,6 +99,7 @@ export function fetchMyOrderDetails(id:string){
               dispatch(setStatus(Status.ERROR))
           }
       } catch (error) {
+        console.log(error)
           dispatch(setStatus(Status.ERROR))
       }
   }
@@ -107,7 +109,7 @@ export function cancelMyOrder(id:string){
   return async function cancelMyOrderThunk(dispatch : AppDispatch){
       dispatch(setStatus(Status.LOADING))
       try {
-          const response = await APIAuthenticated.patch('/order/customer/' + id)
+          const response = await APIAuthenticated.patch('order/deleteorder/' + id)
           if(response.status === 200){
               dispatch(setStatus(Status.SUCCESS))
             
@@ -115,13 +117,9 @@ export function cancelMyOrder(id:string){
               dispatch(setStatus(Status.ERROR))
           }
       } catch (error) {
+        console.log(error)
           dispatch(setStatus(Status.ERROR))
       }
   }
 }
 
-export function updateOrderStatusInStore(data:any){
-  return function updateOrderStatusInStoreThunk(dispatch:AppDispatch){
-      dispatch(updateOrderStatus(data))
-  }
-}

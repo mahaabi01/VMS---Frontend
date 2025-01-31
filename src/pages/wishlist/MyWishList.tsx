@@ -11,9 +11,16 @@ const MyWishlist = () => {
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
+        const token = localStorage.getItem("token");
         const response = await axios.get(
-          "http://localhost:3000/wishlist/getWishlist"
+          "http://localhost:3000/wishlist/getuserwishlist",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
+        console.log("Response:", response);
         setMyWishlist(response.data.data);
       } catch (error) {
         console.error("Error fetching wishlist:", error);
@@ -30,6 +37,11 @@ const MyWishlist = () => {
         "http://localhost:3000/wishlist/addWishlist",
         {
           productName,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
 

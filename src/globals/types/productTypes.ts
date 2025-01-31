@@ -23,5 +23,6 @@ export interface Product{
 export interface ProductState{
   product: Product[],
   status: Status,
-  singleProduct: Prduct | null
+  singleProduct: Prduct | null,
+  searchQuery: string;
 }

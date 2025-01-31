@@ -1,26 +1,38 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../store/hooks";
+import { fetchCreditLedger } from "../../store/creditLedgerSlice";
+import { RootState } from "../../store/store"; // ✅ Correct Import for RootState
+
 import Navbar from "../../globals/components/navbar/Navbar";
 import Footer from "../../globals/components/Footer/Footer";
 
-const MyCreditLedger = () => {
-  const [creditLedger, setCreditLedger] = useState<any[]>([]);
-  const userId = "USER_ID_HERE"; // Replace with actual user ID (from context/auth)
+const MyCreditLedger: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  const { creditLedger, isLoading, error } = useSelector(
+    (state: RootState) => state.creditLedger
+  );
 
   useEffect(() => {
-    const fetchCreditLedger = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/creditLedger/getLedger");
-        // Filter data for the logged-in user
-        const userCreditLedger = response.data.data.filter((ledger: any) => ledger.userId === userId);
-        setCreditLedger(userCreditLedger);
-      } catch (error) {
-        console.error("Error fetching credit ledger:", error);
-      }
-    };
+    dispatch(fetchCreditLedger());
+  }, [dispatch]);
 
-    fetchCreditLedger();
-  }, []);
+  if (isLoading) {
+    return (
+      <div className="text-center py-10">
+        <p className="text-lg font-medium">Loading your credit ledger...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-10">
+        <p className="text-lg text-red-600">{error}</p>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -53,7 +65,9 @@ const MyCreditLedger = () => {
                     {ledger.paymentHistory.length > 0 ? (
                       <ul className="list-disc text-left pl-4">
                         {ledger.paymentHistory.map((payment: any, idx: number) => (
-                          <li key={idx}>${payment.amount} on {new Date(payment.date).toLocaleDateString()}</li>
+                          <li key={idx}>
+                            ${payment.amount} on {new Date(payment.date).toLocaleDateString()}
+                          </li>
                         ))}
                       </ul>
                     ) : (
@@ -64,7 +78,9 @@ const MyCreditLedger = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={6} className="border p-4 text-center">No credit ledger found.</td>
+                <td colSpan={6} className="border p-4 text-center">
+                  No credit ledger found.
+                </td>
               </tr>
             )}
           </tbody>

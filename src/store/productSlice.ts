@@ -8,13 +8,17 @@ import { setStatus } from "./authSlice";
 const initialState:ProductState = {
   product : [],
   status : Status.LOADING,
-  singleProduct : null
+  singleProduct : null,
+  searchQuery : ""
 }
 
 const productSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
+    setSearchQuery: (state, action:PayloadAction<string>) => {
+      state.searchQuery = action.payload
+    },
     setProduct(state:ProductState, action:PayloadAction<Product[]>){
       state.product = action.payload
     },
@@ -25,7 +29,7 @@ const productSlice = createSlice({
 })
 
 
-export const {setProduct, setSingleProduct} = productSlice.actions
+export const {setProduct, setSearchQuery, setSingleProduct} = productSlice.actions
 export default productSlice.reducer
 
 export function fetchProducts(){

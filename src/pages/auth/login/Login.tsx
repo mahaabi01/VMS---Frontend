@@ -24,7 +24,7 @@ const Login = () => {
   }, [status, navigate, dispatch]);
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <Form type="login" onSubmit={handleLogin} />;
       <Footer />
     </>

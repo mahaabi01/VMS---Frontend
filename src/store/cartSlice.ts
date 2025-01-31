@@ -1,6 +1,3 @@
-// 
-
-
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CartItem, CartState } from "../globals/types/cartTypes";
 import { Status } from "../globals/types/types";
@@ -12,7 +9,7 @@ const initialState: CartState = {
   items: [],
   isLoading: false,
   error: null,
-  status: Status.IDLE,
+  status: Status.LOADING,
 };
 
 interface DeleteAction {

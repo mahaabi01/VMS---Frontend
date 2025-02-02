@@ -33,7 +33,7 @@ const Cart: React.FC = () => {
   };
 
   const totalValue = items.reduce(
-    (total, item) => total + item.Product.productPrice * item.quantity,
+    (total, item) => total + item?.Product?.price * item.quantity,
     0
   );
 
@@ -81,34 +81,34 @@ const Cart: React.FC = () => {
               <ul className="space-y-4">
                 {items.map((item) => (
                   <li
-                    key={item.Product.id}
+                    key={item?.Product?.id}
                     className="flex items-center justify-between border-b pb-4"
                   >
                     <div>
-                      <p className="text-lg font-medium">{item.Product.productName}</p>
+                      <p className="text-lg font-medium">{item.Product?.productName}</p>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Quantity: {item.quantity}
+                        Quantity: {item?.quantity}
                       </p>
                     </div>
                     <div className="flex items-center gap-2">
                       <p className="text-lg font-bold">
-                        Rs. {item.Product.productPrice * item.quantity}
+                        Rs. {item?.Product?.price * item?.quantity}
                       </p>
                       <button
-                        onClick={() => handleAddToCart(item.Product.id)}
+                        onClick={() => handleAddToCart(item?.Product?.id)}
                         className="px-2 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600"
                       >
                         + Add
                       </button>
                       <button
-                        onClick={() => handleDeleteCartItem(item.Product.id)}
+                        onClick={() => handleDeleteCartItem(item.Product?.id)}
                         className="px-2 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600"
                       >
                         Remove
                       </button>
                       <button
                         onClick={() =>
-                          handleUpdateCartItem(item.Product.id, item.quantity + 1)
+                          handleUpdateCartItem(item?.Product?.id, item?.quantity + 1)
                         }
                         className="px-2 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600"
                       >

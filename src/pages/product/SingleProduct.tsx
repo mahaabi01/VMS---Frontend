@@ -56,6 +56,11 @@ const SingleProduct = () => {
           comment: newComment,
           rating: newRating,
           productId: id,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
         }
       );
       setComments([...comments, response.data]); // Add the new comment to the state
@@ -79,8 +84,8 @@ const SingleProduct = () => {
                   <img
                     className="w-full h-full object-cover"
                     src={
-                      singleProduct.imageUrl ||
-                      "https://cdn.pixabay.com/photo/2020/05/22/17/53/mockup-5206355_960_720.jpg"
+                      "http://localhost:3000/" +singleProduct.imageUrl ||
+                      "https://picsum.photos/536/354"
                     }
                     alt={singleProduct.name || "Product Image"}
                   />

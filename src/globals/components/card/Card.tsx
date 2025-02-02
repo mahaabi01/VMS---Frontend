@@ -15,7 +15,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ products }) => {
   return (
-    <div className="max-w-7xl mx-auto mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-4">
+    <div className="max-w-7xl mr-60 mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-4">
       {products.map((product) => (
         <div
           key={product.id}
@@ -24,7 +24,7 @@ const Card: React.FC<CardProps> = ({ products }) => {
           <Link to={`/product/${product.id}`} className="block">
             <img
               className="w-full h-56 object-cover"
-              src={product.imageUrl || "https://via.placeholder.com/150"}
+              src={"http://localhost:3000/"+product.imageUrl || "https://picsum.photos/536/354"}
               alt={product.name}
             />
           </Link>

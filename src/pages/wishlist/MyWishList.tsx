@@ -16,7 +16,8 @@ const MyWishlist = () => {
           "http://localhost:3000/wishlist/getuserwishlist",
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              // Authorization: `Bearer ${token}`,
+              Authorization: token,
             },
           }
         );
@@ -40,7 +41,7 @@ const MyWishlist = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: localStorage.getItem("token"),
           },
         }
       );

@@ -24,6 +24,7 @@ function App() {
           <Route path="/myWishList" element={<MyWishlist />} />
           <Route path="/myCreditLedger" element={<MyCreditLedger />} />
           <Route path="/checkOut" element={<CheckOut />} />
+          <Route path="/myProfile" element= {<MyProfile />} />
           {/* <Route path="/products" element={<Product />} /> */}
         </Routes>
       </BrowserRouter>

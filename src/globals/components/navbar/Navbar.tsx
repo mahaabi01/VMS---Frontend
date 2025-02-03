@@ -286,6 +286,7 @@ const Navbar = () => {
 
                 {/* Hidden by default and shown on hover */}
                 <div className="absolute left-0 top-full mt-2 space-y-4 hidden group-hover:block bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow-md">
+                  
                   <Link
                     to={`/user/myCart`}
                     className="block text-sm font-semibold text-white-800 hover:text-blue-600"

@@ -13,7 +13,7 @@ const initialState: CartState = {
 };
 
 interface DeleteAction {
-  productId: string;
+  id: string;
 }
 
 interface UpdateAction extends DeleteAction {
@@ -32,7 +32,8 @@ const cartSlice = createSlice({
     },
     setDeleteItem(state: CartState, action: PayloadAction<DeleteAction>) {
       const index = state.items.findIndex(
-        (item) => item.Product.id === action.payload.productId
+        // (item) => item.Product.id === action.payload.productId
+        (item) => item.id === action.payload.id
       );
       if (index !== -1) {
         state.items.splice(index, 1);
@@ -40,7 +41,7 @@ const cartSlice = createSlice({
     },
     setUpdateItem(state: CartState, action: PayloadAction<UpdateAction>) {
       const index = state.items.findIndex(
-        (item) => item.Product.id === action.payload.productId
+        (item) => item.id === action.payload.id
       );
       if (index !== -1) {
         state.items[index].quantity = action.payload.quantity;
@@ -91,12 +92,12 @@ export function fetchCartItems() {
   };
 }
 
-export function deleteCartItem(productId: string) {
+export function deleteCartItem(id: string) {
   return async function deleteCartItemThunk(dispatch: AppDispatch) {
     dispatch(setStatus(Status.LOADING));
     try {
       const response = await APIAuthenticated.delete(
-        "/cart/deleteMyCart/" + productId
+        "/cart/deleteMyCart/" + id
       );
       if (response.status === 200) {
         dispatch(setStatus(Status.SUCCESS));

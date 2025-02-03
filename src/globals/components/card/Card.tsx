@@ -14,6 +14,33 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ products }) => {
+  const handleAddToCart = async (productId: string) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("No token found in localstorage");
+        return;
+      }
+
+      const response = await fetch("http://localhost:3000/cart/addToCart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({ productId, quantity: 1 }),
+      });
+
+      if (response.status === 200) {
+        console.log("Added to cart");
+      } else {
+        console.error("Error adding to cart");
+      }
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
+  };
+
   return (
     <div className="max-w-7xl mr-60 mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-4">
       {products.map((product) => (
@@ -24,7 +51,10 @@ const Card: React.FC<CardProps> = ({ products }) => {
           <Link to={`/product/${product.id}`} className="block">
             <img
               className="w-full h-56 object-cover"
-              src={"http://localhost:3000/"+product.imageUrl || "https://picsum.photos/536/354"}
+              src={
+                "http://localhost:3000/" + product.imageUrl ||
+                "https://picsum.photos/536/354"
+              }
               alt={product.name}
             />
           </Link>
@@ -59,7 +89,10 @@ const Card: React.FC<CardProps> = ({ products }) => {
               <span className="text-2xl font-bold text-gray-900 dark:text-white">
                 ${parseFloat(product.price).toFixed(2)}
               </span>
-              <button className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 transition-all dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">
+              <button
+                onClick={() => handleAddToCart(product.id)}
+                className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 transition-all dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+              >
                 Add to cart
               </button>
             </div>

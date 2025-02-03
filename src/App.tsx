@@ -9,6 +9,7 @@ import SingleProduct from "./pages/product/SingleProduct";
 import MyWishlist from "./pages/wishlist/MyWishList";
 import MyCreditLedger from "./pages/creditLedger/MyCreditLedger";
 import CheckOut from "./pages/checkOut/CheckOut";
+import UserCard from "./pages/user/MyProfile";
 
 function App() {
   return (
@@ -24,7 +25,6 @@ function App() {
           <Route path="/myWishList" element={<MyWishlist />} />
           <Route path="/myCreditLedger" element={<MyCreditLedger />} />
           <Route path="/checkOut" element={<CheckOut />} />
-          <Route path="/myProfile" element= {<MyProfile />} />
           {/* <Route path="/products" element={<Product />} /> */}
         </Routes>
       </BrowserRouter>

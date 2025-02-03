@@ -2,6 +2,7 @@ import { Product } from "./productTypes"
 import { Status } from './types'
 
 export interface CartItem{
+  id: string,
   Product: Product,
   quantity: number
 }

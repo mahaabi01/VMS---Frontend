@@ -8,7 +8,7 @@ interface User{
 
 export interface Product{
   id: string,
-  productName: string,
+  name: string,
   productDescription: string,
   price: number,
   productTotalStockQty: number,
@@ -23,6 +23,6 @@ export interface Product{
 export interface ProductState{
   product: Product[],
   status: Status,
-  singleProduct: Prduct | null,
+  singleProduct: Product | null,
   searchQuery: string;
 }

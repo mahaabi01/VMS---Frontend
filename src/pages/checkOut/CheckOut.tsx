@@ -1,3 +1,107 @@
+// import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+// import Navbar from "../../globals/components/navbar/Navbar";
+// import { useAppDispatch, useAppSelector } from "../../store/hooks";
+// import { IData, PaymentMethod } from "./types";
+// import { orderItem } from "../../store/checkoutSlice";
+
+
+
+// const CheckOut = () => {
+//   const dispatch = useAppDispatch();
+//   const { items } = useAppSelector((store) => store.cart);
+//   const { khaltiUrl, status } = useAppSelector((store) => store.checkout);
+
+//   const [formData, setFormData] = useState<IData>({
+//     name: "",
+//     address: "",
+//     paymentMethod: PaymentMethod.CashOnDelivery,
+//   });
+
+//   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+//     const { name, value } = e.target;
+//     setFormData((prevData) => ({
+//       ...prevData,
+//       [name]: value,
+//     }));
+//   };
+
+//   const handleSubmit = (e: FormEvent) => {
+//     e.preventDefault();
+//     dispatch(orderItem(formData));
+//   };
+
+//   useEffect(() => {
+//     if (status === "success") {
+//       // Redirect to success page or show success message
+//     }
+//   }, [status]);
+
+//   return (
+//     <>
+//       <Navbar />
+//       <div className="container mx-auto px-4 py-10">
+//         <h1 className="text-2xl md:text-4xl font-bold text-center mb-6">
+//           Checkout
+//         </h1>
+//         <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+//           <div className="mb-4">
+//             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+//               Name
+//             </label>
+//             <input
+//               type="text"
+//               id="name"
+//               name="name"
+//               value={formData.name}
+//               onChange={handleChange}
+//               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+//               required
+//             />
+//           </div>
+//           <div className="mb-4">
+//             <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+//               Address
+//             </label>
+//             <input
+//               type="text"
+//               id="address"
+//               name="address"
+//               value={formData.address}
+//               onChange={handleChange}
+//               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+//               required
+//             />
+//           </div>
+//           <div className="mb-4">
+//             <label htmlFor="paymentMethod" className="block text-sm font-medium text-gray-700">
+//               Payment Method
+//             </label>
+//             <select
+//               id="paymentMethod"
+//               name="paymentMethod"
+//               value={formData.paymentMethod}
+//               onChange={handleChange}
+//               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+//               required
+//             >
+//               <option value={PaymentMethod.CashOnDelivery}>Cash on Delivery</option>
+//               <option value={PaymentMethod.Khalti}>Khalti</option>
+//             </select>
+//           </div>
+//           <button
+//             type="submit"
+//             className="w-full px-4 py-2 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600"
+//           >
+//             Place Order
+//           </button>
+//         </form>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default CheckOut;
+
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Navbar from "../../globals/components/navbar/Navbar";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -8,192 +112,91 @@ const CheckOut = () => {
   const dispatch = useAppDispatch();
   const { items } = useAppSelector((store) => store.cart);
   const { khaltiUrl, status } = useAppSelector((store) => store.checkout);
-  const total = items.reduce(
-    (total, item) => item.Product.productPrice * item.quantity + total,
-    0
-  );
 
-  const [data, setData] = useState<IData>({
-    firstName: "",
-    lastName: "",
-    city: "",
-    email: "",
-    paymentMethod: PaymentMethod.Cod,
-    phoneNumber: "",
-    products: [],
-    state: "",
-    totalAmount: 0,
-    zipcode: "",
+  const [formData, setFormData] = useState<IData>({
+    name: "",
+    address: "",
+    paymentMethod: PaymentMethod.CashOnDelivery,
   });
 
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(
-    PaymentMethod.Cod
-  );
-
-  const handlePaymentMethod = (paymentData: PaymentMethod) => {
-    setPaymentMethod(paymentData);
-    setData((prev) => ({
-      ...prev,
-      paymentMethod: paymentData,
-    }));
-  };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setData((prev) => ({
-      ...prev,
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: value,
     }));
   };
 
-  // handleSubmit
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-
-    const productData =
-      items.length > 0
-        ? items.map((item) => ({
-            productId: item.Product.id,
-            productQty: item.quantity,
-          }))
-        : [];
-
-    const finalData = {
-      ...data,
-      products: productData,
-      totalAmount: total,
-    };
-
-    await dispatch(orderItem(finalData));
+    dispatch(orderItem(formData));
   };
 
   useEffect(() => {
-    if (khaltiUrl) {
-      window.location.href = khaltiUrl;
+    if (status === "success") {
+      // Redirect to success page or show success message
     }
-  }, [khaltiUrl, status]);
+  }, [status]);
 
   return (
     <>
       <Navbar />
-      <div className="font-[sans-serif] bg-white">
-        <div className="flex max-sm:flex-col gap-12 max-lg:gap-4 h-full">
-          <div className="bg-gray-100 sm:h-screen sm:sticky sm:top-0 lg:min-min-w-[370px] sm:min-w-[300px]">
-            <div className="relative h-full">
-              <div className="px-4 py-8 sm:overflow-auto sm:h-[calc(100vh-60px)]">
-                <div className="space-y-4">
-                  {items.length > 0 ? (
-                    items.map((item) => (
-                      <div
-                        className="flex items-start gap-4"
-                        key={item.Product.id}
-                      >
-                        <div className="w-32 h-28 max-lg:w-24 max-lg:h-24 flex p-3 shrink-0 bg-gray-200 rounded-md">
-                          <img
-                            src={`http://localhost:3000/${item.Product?.productImageUrl}`}
-                            className="w-full object-contain"
-                            alt={item.Product.productName}
-                          />
-                        </div>
-                        <div className="w-full">
-                          <h3 className="text-sm lg:text-base text-gray-800">
-                            {item.Product.productName}
-                          </h3>
-                          <ul className="text-xs text-gray-800 space-y-1 mt-3">
-                            <li className="flex flex-wrap gap-4">
-                              Quantity{" "}
-                              <span className="ml-auto">{item.quantity}</span>
-                            </li>
-                            <li className="flex flex-wrap gap-4">
-                              Total Price{" "}
-                              <span className="ml-auto">
-                                Rs.{item.Product.productPrice * item.quantity}
-                              </span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <p>No Items</p>
-                  )}
-                </div>
-              </div>
-              <div className="md:absolute md:left-0 md:bottom-0 bg-gray-200 w-full p-4">
-                <h4 className="flex flex-wrap gap-4 text-sm lg:text-base text-gray-800">
-                  Total <span className="ml-auto">Rs.{total}</span>
-                </h4>
-              </div>
-            </div>
+      <div className="container mx-auto px-4 py-10">
+        <h1 className="text-2xl md:text-4xl font-bold text-center mb-6">
+          Checkout
+        </h1>
+        <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+          <div className="mb-4">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              required
+            />
           </div>
-          <div className="max-w-4xl w-full h-max rounded-md px-4 py-8 sticky top-0">
-            <h2 className="text-2xl font-bold text-gray-800">
-              Complete your order
-            </h2>
-            <form className="mt-8" onSubmit={handleSubmit}>
-              <div className="mt-8">
-                <h3 className="text-sm lg:text-base text-gray-800 mb-4">
-                  Shipping Address
-                </h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    name="city"
-                    onChange={handleChange}
-                    placeholder="City"
-                    className="px-4 py-3 bg-gray-100 text-gray-800 w-full text-sm rounded-md"
-                  />
-                  <input
-                    type="text"
-                    name="state"
-                    onChange={handleChange}
-                    placeholder="State"
-                    className="px-4 py-3 bg-gray-100 text-gray-800 w-full text-sm rounded-md"
-                  />
-                  <input
-                    type="text"
-                    name="zipCode"
-                    onChange={handleChange}
-                    placeholder="Zip Code"
-                    className="px-4 py-3 bg-gray-100 text-gray-800 w-full text-sm rounded-md"
-                  />
-                  <div>
-                    <label htmlFor="paymentMethod">Payment Method: </label>
-                    <select
-                      name="paymentMethod"
-                      id="paymentMethod"
-                      onChange={(e) =>
-                        handlePaymentMethod(e.target.value as PaymentMethod)
-                      }
-                    >
-                      <option value={PaymentMethod.Cod}>COD</option>
-                      <option value={PaymentMethod.Khalti}>Khalti</option>
-                      <option value={PaymentMethod.Esewa}>Esewa</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="flex gap-4 max-md:flex-col mt-8">
-                  <button
-                    type="submit"
-                    className={`rounded-md px-4 py-2.5 w-full text-sm tracking-wide text-white ${
-                      paymentMethod === PaymentMethod.Cod
-                        ? "bg-blue-600 hover:bg-blue-700"
-                        : paymentMethod === PaymentMethod.Khalti
-                        ? "bg-purple-600 hover:bg-purple-700"
-                        : "bg-green-600 hover:bg-green-700"
-                    }`}
-                  >
-                    {paymentMethod === PaymentMethod.Cod
-                      ? "Pay on COD"
-                      : paymentMethod === PaymentMethod.Khalti
-                      ? "Pay with Khalti"
-                      : "Pay with Esewa"}
-                  </button>
-                </div>
-              </div>
-            </form>
+          <div className="mb-4">
+            <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+              Address
+            </label>
+            <input
+              type="text"
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              required
+            />
           </div>
-        </div>
+          <div className="mb-4">
+            <label htmlFor="paymentMethod" className="block text-sm font-medium text-gray-700">
+              Payment Method
+            </label>
+            <select
+              id="paymentMethod"
+              name="paymentMethod"
+              value={formData.paymentMethod}
+              onChange={handleChange}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              required
+            >
+              <option value={PaymentMethod.CashOnDelivery}>Cash on Delivery</option>
+              <option value={PaymentMethod.Khalti}>Khalti</option>
+            </select>
+          </div>
+          <button
+            type="submit"
+            className="w-full px-4 py-2 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600"
+          >
+            Place Order
+          </button>
+        </form>
       </div>
     </>
   );

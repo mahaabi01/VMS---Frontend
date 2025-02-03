@@ -34,7 +34,12 @@ const SingleProduct = () => {
     const fetchComments = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/comment/getAllComment/${id}`
+          `http://localhost:3000/comment/getAllComment/${id}`,
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
         );
         setComments(response.data.data);
       } catch (error) {
@@ -84,7 +89,7 @@ const SingleProduct = () => {
                   <img
                     className="w-full h-full object-cover"
                     src={
-                      "http://localhost:3000/" +singleProduct.imageUrl ||
+                      "http://localhost:3000/" + singleProduct.imageUrl ||
                       "https://picsum.photos/536/354"
                     }
                     alt={singleProduct.name || "Product Image"}
@@ -173,7 +178,7 @@ const SingleProduct = () => {
             </form>
 
             {/* Display comments */}
-            <div className="space-y-4">
+            {/* <div className="space-y-4">
               {comments.length > 0 ? (
                 comments.map((comment, index) => (
                   <div key={index} className="p-4 bg-gray-200 rounded-md">
@@ -187,6 +192,30 @@ const SingleProduct = () => {
                 ))
               ) : (
                 <p className="text-sm text-gray-500 dark:text-gray-300">
+                  No comments yet. Be the first to comment!
+                </p>
+              )}
+            </div> */}
+            <div className="space-y-4">
+              {comments.length > 0 ? (
+                comments.map((comment, index) => (
+                  <div
+                    key={index}
+                    className="p-4 bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition duration-300 border border-gray-300 dark:border-gray-700"
+                  >
+                    <p className="text-base text-gray-800 dark:text-gray-100 font-semibold">
+                      {comment.comment}
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 italic">
+                      Rating:{" "}
+                      <span className="font-bold text-yellow-500">
+                        {comment.rating}/5
+                      </span>
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-center text-gray-500 dark:text-gray-300 italic">
                   No comments yet. Be the first to comment!
                 </p>
               )}
